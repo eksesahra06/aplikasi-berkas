@@ -1,9 +1,17 @@
 package suratapp;
 
+import java.awt.print.*;
+
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Destination;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
@@ -438,9 +446,29 @@ public class MainApp extends JFrame {
             btnDownload.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
             btnDownload.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btnDownload.setOpaque(true);
+            // Cari baris ini di dalam DetailSuratDialog:
+            // Hapus action listener bawaanmu yang lama, ganti dengan ini:
             btnDownload.addActionListener(e -> {
-                exportToFile(surat);
-                JOptionPane.showMessageDialog(this, "Surat berhasil diekspor!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Simpan Surat ke PDF");
+                
+                // Set default nama file
+                String defaultName = "Surat_" + surat.getNomorSurat().replace("/", "-") + ".pdf";
+                fileChooser.setSelectedFile(new File(defaultName));
+
+                // Buka dialog "Save As..."
+                int userSelection = fileChooser.showSaveDialog(this);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    
+                    // Pastikan akhirannya pakai .pdf
+                    if (!fileToSave.getName().toLowerCase().endsWith(".pdf")) {
+                        fileToSave = new File(fileToSave.getParentFile(), fileToSave.getName() + ".pdf");
+                    }
+                    
+                    // Eksekusi fungsi simpan PDF tanpa dialog print
+                    simpanPDFLangsung(surat, fileToSave);
+                }
             });
             
             JButton btnEdit = new JButton("Edit Surat");
@@ -475,7 +503,7 @@ public class MainApp extends JFrame {
                     refreshList();
                 }
             });
-            
+
             JButton btnTutup = new JButton("Tutup");
             btnTutup.setFont(FONT_BUTTON);
             btnTutup.setBackground(COLOR_GRAY);
@@ -510,7 +538,104 @@ public class MainApp extends JFrame {
             val.setFont(FONT_REGULAR);
             panel.add(val, gbc);
         }
+
+        private void simpanPDFLangsung(Surat surat, File fileToSave) {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            
+            job.setPrintable(new Printable() {
+                @Override
+                public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) {
+                    if (pageIndex > 0) return NO_SUCH_PAGE;
+
+                    Graphics2D g2d = (Graphics2D) graphics;
+                    g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+                    g2d.setColor(Color.BLACK);
+
+                    int y = 60;
+                    int x = 50;
+
+                    // --- HEADER SURAT ---
+                    g2d.setFont(new Font("Segoe UI", Font.BOLD, 18));
+                    g2d.drawString("ARSIP SURAT ELEKTRONIK", x, y);
+                    y += 10;
+                    g2d.drawLine(x, y, (int) pageFormat.getImageableWidth() - x, y);
+                    y += 30;
+
+                    // --- DETAIL SURAT ---
+                    g2d.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    g2d.drawString("Jenis Surat", x, y);
+                    g2d.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+                    g2d.drawString(":  " + surat.getJenis(), x + 120, y);
+                    y += 20;
+
+                    g2d.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    g2d.drawString("Nomor Surat", x, y);
+                    g2d.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+                    g2d.drawString(":  " + surat.getNomorSurat(), x + 120, y);
+                    y += 20;
+
+                    g2d.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    g2d.drawString("Tanggal", x, y);
+                    g2d.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+                    g2d.drawString(":  " + surat.getTanggalFormatted(), x + 120, y);
+                    y += 20;
+
+                    g2d.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    g2d.drawString("Pengirim/Penerima", x, y);
+                    g2d.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+                    g2d.drawString(":  " + surat.getPengirimPenerima(), x + 120, y);
+                    y += 20;
+
+                    g2d.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    g2d.drawString("Perihal", x, y);
+                    g2d.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+                    g2d.drawString(":  " + surat.getPerihal(), x + 120, y);
+                    y += 35;
+
+                    // --- ISI SURAT ---
+                    g2d.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    g2d.drawString("Isi Surat :", x, y);
+                    y += 20;
+
+                    g2d.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+                    String[] lines = surat.getIsi().split("\n");
+                    for (String line : lines) {
+                        g2d.drawString(line, x, y);
+                        y += 18;
+                    }
+                    return PAGE_EXISTS;
+                }
+            });
+
+            try {
+                // Trik: Cari printer PDF virtual otomatis bawaan komputer (Microsoft Print to PDF)
+                PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+                PrintService pdfPrinter = null;
+                for (PrintService service : services) {
+                    if (service.getName().toLowerCase().contains("pdf")) {
+                        pdfPrinter = service;
+                        break;
+                    }
+                }
+
+                if (pdfPrinter != null) {
+                    job.setPrintService(pdfPrinter);
+                    
+                    // Beri instruksi ke layanan print untuk langsung lempar datanya ke file, BUKAN ke printer fisik/jendela pop-up
+                    PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
+                    attributes.add(new Destination(fileToSave.toURI()));
+                    
+                    job.print(attributes); // Mengeksekusi secara rahasia di background
+                    JOptionPane.showMessageDialog(this, "Mantap! Surat berhasil disimpan ke PDF di:\n" + fileToSave.getAbsolutePath(), "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tidak ada layanan Virtual PDF di komputermu.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Waduh, gagal membuat PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
+
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
