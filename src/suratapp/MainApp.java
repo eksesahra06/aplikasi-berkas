@@ -626,7 +626,7 @@ public class MainApp extends JFrame {
                     attributes.add(new Destination(fileToSave.toURI()));
                     
                     job.print(attributes); // Mengeksekusi secara rahasia di background
-                    JOptionPane.showMessageDialog(this, "Mantap! Surat berhasil disimpan ke PDF di:\n" + fileToSave.getAbsolutePath(), "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Surat berhasil disimpan ke PDF di:\n" + fileToSave.getAbsolutePath(), "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Tidak ada layanan Virtual PDF di komputermu.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
