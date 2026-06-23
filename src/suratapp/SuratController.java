@@ -24,20 +24,19 @@ public class SuratController {
     
     private void loadDataDummy() {
         semuaSurat.add(new Surat("001/SM/VI/25", LocalDate.of(2025, 7, 11), "Masuk", 
-            "Dosen A", "UNDANGAN RAPAT", "Undangan kepada yang bersangkutan untuk menghadiri rapat koordinasi di ruang sidang."));
+            "Dosen TYUN", "UNDANGAN RAPAT", "Undangan kepada yang bersangkutan untuk menghadiri rapat koordinasi di ruang sidang."));
         semuaSurat.add(new Surat("002/SK/VI/25", LocalDate.of(2025, 7, 10), "Keluar", 
-            "Prodi Sistem Informasi", "PENGIRIMAN TUGAS", "Pengiriman tugas besar mata kuliah Pemrograman Berorientasi Objek."));
+            "Prodi Tubatu Wari Wari", "TUGAS", "Ditugaskan membuat project kelompok 5 anggota, membangun aplikasi TXT MARKETING. Deadline satu bulan."));
         semuaSurat.add(new Surat("003/SM/VI/25", LocalDate.of(2025, 7, 5), "Masuk", 
-            "E-commerce", "PESANAN", "Pesanan dengan nomor resi JNE123456789 telah dikonfirmasi."));
+            "WEVERSE", "PESANAN", "Pesanan dengan nomor resi TXT123456789 telah dikonfirmasi."));
         semuaSurat.add(new Surat("004/SK/VI/25", LocalDate.of(2025, 7, 2), "Keluar", 
-            "Kemendikbud", "PEMBERITAHUAN", "Pemberitahuan perubahan jadwal ujian semester."));
+            "Leader Soobin", "PEMBERITAHUAN", "Pemberitahuan perubahan jadwal latihan."));
         semuaSurat.add(new Surat("005/SM/VI/25", LocalDate.of(2025, 7, 1), "Masuk", 
-            "School Admin", "JADWAL", "Masuknya semester baru dimulai tanggal 1 Agustus 2025."));
+            "Hyuka's School", "JADWAL", "Masuknya semester baru dimulai tanggal 1 Agustus 2025."));
         semuaSurat.add(new Surat("006/SK/VI/25", LocalDate.of(2025, 6, 28), "Keluar", 
-            "Rektorat", "UNDANGAN WISUDA", "Undangan upacara wisuda periode ke-72."));
+            "Rektorat Yeonjun", "UNDANGAN WISUDA", "Undangan upacara wisuda periode ke-67."));
         semuaSurat.add(new Surat("007/SM/VI/25", LocalDate.of(2025, 6, 25), "Masuk", 
-            "Perusahaan X", "LOWONGAN MAGANG", "Informasi lowongan magang untuk mahasiswa semester akhir."));
-    }
+            "Perusahaan GYU", "LOWONGAN MAGANG", "Informasi lowongan magang untuk mahasiswa semester akhir."));    }
     
     public DefaultListModel<Surat> getListModel() {
         return listModel;
