@@ -23,20 +23,22 @@ public class SuratController {
     }
     
     private void loadDataDummy() {
-        semuaSurat.add(new Surat("001/SM/VI/25", LocalDate.of(2025, 7, 11), "Masuk", 
-            "Dosen A", "UNDANGAN RAPAT", "Undangan kepada yang bersangkutan untuk menghadiri rapat koordinasi di ruang sidang."));
-        semuaSurat.add(new Surat("002/SK/VI/25", LocalDate.of(2025, 7, 10), "Keluar", 
-            "Prodi Sistem Informasi", "PENGIRIMAN TUGAS", "Pengiriman tugas besar mata kuliah Pemrograman Berorientasi Objek."));
-        semuaSurat.add(new Surat("003/SM/VI/25", LocalDate.of(2025, 7, 5), "Masuk", 
-            "E-commerce", "PESANAN", "Pesanan dengan nomor resi JNE123456789 telah dikonfirmasi."));
-        semuaSurat.add(new Surat("004/SK/VI/25", LocalDate.of(2025, 7, 2), "Keluar", 
-            "Kemendikbud", "PEMBERITAHUAN", "Pemberitahuan perubahan jadwal ujian semester."));
-        semuaSurat.add(new Surat("005/SM/VI/25", LocalDate.of(2025, 7, 1), "Masuk", 
-            "School Admin", "JADWAL", "Masuknya semester baru dimulai tanggal 1 Agustus 2025."));
-        semuaSurat.add(new Surat("006/SK/VI/25", LocalDate.of(2025, 6, 28), "Keluar", 
-            "Rektorat", "UNDANGAN WISUDA", "Undangan upacara wisuda periode ke-72."));
-        semuaSurat.add(new Surat("007/SM/VI/25", LocalDate.of(2025, 6, 25), "Masuk", 
-            "Perusahaan X", "LOWONGAN MAGANG", "Informasi lowongan magang untuk mahasiswa semester akhir."));
+        semuaSurat.add(new Surat("001/SM/VI/26", LocalDate.of(2026, 2, 11), "Masuk", 
+            "Dosen TYUN", "UNDANGAN RAPAT", "Undangan kepada yang bersangkutan untuk menghadiri rapat koordinasi di ruang sidang."));
+        semuaSurat.add(new Surat("002/SK/VI/26", LocalDate.of(2026, 1, 10), "Keluar", 
+            "Prodi Tubatu Wari Wari", "TUGAS", "Ditugaskan membuat project kelompok 5 anggota, membangun aplikasi TXT MARKETING. Deadline satu bulan."));
+        semuaSurat.add(new Surat("003/SM/VI/26", LocalDate.of(2026, 6, 5), "Masuk", 
+            "WEVERSE", "PESANAN", "Pesanan dengan nomor resi TXT123456789 telah dikonfirmasi."));
+        semuaSurat.add(new Surat("004/SK/VI/26", LocalDate.of(2026, 5, 2), "Keluar", 
+            "Leader Soobin", "PEMBERITAHUAN", "Pemberitahuan perubahan jadwal latihan."));
+        semuaSurat.add(new Surat("005/SM/VI/26", LocalDate.of(2026, 4, 1), "Masuk", 
+            "Hyuka's School", "JADWAL", "Masuknya semester baru dimulai tanggal 1 Agustus 2025."));
+        semuaSurat.add(new Surat("006/SK/VI/26", LocalDate.of(2026, 3, 28), "Keluar", 
+            "Rektorat Yeonjun", "UNDANGAN WISUDA", "Undangan upacara wisuda periode ke-67."));
+        semuaSurat.add(new Surat("007/SM/VI/26", LocalDate.of(2026, 2, 25), "Masuk", 
+            "Perusahaan GYU", "LOWONGAN MAGANG", "Informasi lowongan magang untuk mahasiswa semester akhir."));
+        semuaSurat.add(new Surat("008/SM/VI/26", LocalDate.of(2025, 8, 22), "Keluar", 
+            "Organisasi MOA", "PENDAFTARAN", "Informasi pendaftaran. Menerima berbagai kalangan, latar belakang, as long as you love TOMORROW X TOGETHER, then you will be accepted."));
     }
     
     public DefaultListModel<Surat> getListModel() {
