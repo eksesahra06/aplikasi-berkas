@@ -37,7 +37,7 @@ public class SuratController {
             "Rektorat Yeonjun", "UNDANGAN WISUDA", "Undangan upacara wisuda periode ke-67."));
         semuaSurat.add(new Surat("007/SM/VI/26", LocalDate.of(2026, 2, 25), "Masuk", 
             "Perusahaan GYU", "LOWONGAN MAGANG", "Informasi lowongan magang untuk mahasiswa semester akhir."));
-        semuaSurat.add(new Surat("008/SM/VI/26", LocalDate.of(2025, 8, 22), "Keluar", 
+        semuaSurat.add(new Surat("008/SK/VI/26", LocalDate.of(2025, 8, 22), "Keluar", 
             "Organisasi MOA", "PENDAFTARAN", "Informasi pendaftaran. Menerima berbagai kalangan, latar belakang, as long as you love TOMORROW X TOGETHER, then you will be accepted."));
     }
     
