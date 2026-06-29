@@ -33,7 +33,7 @@ public class SuratController {
             "Leader Soobin", "PEMBERITAHUAN", "Pemberitahuan perubahan jadwal latihan."));
         semuaSurat.add(new Surat("005/SM/VI/26", LocalDate.of(2026, 4, 1), "Masuk", 
             "Hyuka's School", "JADWAL", "Masuknya semester baru dimulai tanggal 1 Agustus 2025."));
-        semuaSurat.add(new Surat("006/SK/VI/26", LocalDate.of(2026, 3, 28), "Keluar", 
+        semuaSurat.add(new Surat("006/SK/V/26", LocalDate.of(2026, 3, 28), "Keluar", 
             "Rektorat Yeonjun", "UNDANGAN WISUDA", "Undangan upacara wisuda periode ke-67."));
         semuaSurat.add(new Surat("007/SM/VI/26", LocalDate.of(2026, 2, 25), "Masuk", 
             "Perusahaan GYU", "LOWONGAN MAGANG", "Informasi lowongan magang untuk mahasiswa semester akhir."));
